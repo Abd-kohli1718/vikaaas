@@ -1,0 +1,547 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body {
+    @apply text-brand-navy font-sans antialiased bg-[#FAF6EE];
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
+    touch-action: manipulation;
+  }
+
+  /* Prevent iOS auto-zoom on form inputs by ensuring 16px minimum */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  @media (min-width: 640px) {
+    input,
+    select,
+    textarea {
+      font-size: inherit;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans text-brand-navy font-bold tracking-tight;
+  }
+}
+
+@layer components {
+
+  /* Postage Stamp Card */
+  .stamp-card {
+    border: 3px solid theme('colors.stamp-border');
+    border-radius: 4px;
+    padding: 12px;
+    background: theme('colors.bg-cream');
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+    /* Basic serrated edge fallback */
+    position: relative;
+  }
+
+  /* Serrated edges using pseudo-elements for better browser support */
+  .stamp-card::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    background: radial-gradient(circle at 4px 4px, transparent 4px, theme('colors.stamp-border') 5px) -4px -4px / 16px 16px;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 6px;
+    opacity: 0.5;
+    /* Makes the border look like a shadow/cutout */
+  }
+
+  /* Archival Document / Cream Paper Card */
+  .archival-card {
+    background-color: #FCF9F2;
+    border: 1px solid #C8B89A;
+    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
+    position: relative;
+  }
+
+  /* Double hairline vintage border */
+  .vintage-double-border {
+    border: 3px double #C8B89A;
+  }
+
+  /* Postmark cancellation mark */
+  .postmark-seal {
+    border: 1.5px dashed rgba(200, 184, 154, 0.6);
+    border-radius: 9999px;
+  }
+
+  /* Primary CTA Button */
+  .btn-primary {
+    @apply bg-brand-orange text-white rounded-full px-7 py-3 font-semibold text-base transition-colors duration-200 shadow-md;
+  }
+
+  .btn-primary:hover {
+    @apply bg-[#E05500];
+  }
+
+  /* Ticket Border Effect */
+  .ticket-border {
+    -webkit-mask-image: 
+      radial-gradient(circle at 0% 50%, transparent 24px, black 25px),
+      radial-gradient(circle at 100% 50%, transparent 24px, black 25px);
+    -webkit-mask-size: 51% 100%;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: left top, right top;
+    
+    mask-image: 
+      radial-gradient(circle at 0% 50%, transparent 24px, black 25px),
+      radial-gradient(circle at 100% 50%, transparent 24px, black 25px);
+    mask-size: 51% 100%;
+    mask-repeat: no-repeat;
+    mask-position: left top, right top;
+  }
+
+  /* Stat Card */
+  .stat-card {
+    @apply text-center flex flex-col items-center justify-center;
+  }
+
+  .stat-card .number {
+    @apply font-display text-[2.5rem] font-bold text-brand-navy leading-none mb-2;
+  }
+
+  .stat-card .label {
+    @apply font-sans text-[0.85rem] text-text-muted uppercase tracking-wider font-semibold;
+  }
+
+  /* Timeline Node */
+  .timeline-node {
+    @apply w-14 h-14 rounded-full flex items-center justify-center relative z-10;
+    box-shadow: 0 0 0 4px white, 0 0 0 6px var(--node-color);
+  }
+
+  /* Dashed Connector */
+  .timeline-connector {
+    stroke-dasharray: 6 4;
+    stroke: #888888;
+    fill: none;
+    stroke-width: 2;
+  }
+
+  /* Award Card */
+  .award-card {
+    @apply flex flex-col items-center gap-2 text-white text-center;
+  }
+
+  .award-card .icon {
+    @apply text-[2.5rem] text-accent-gold mb-2 drop-shadow-md;
+  }
+
+  .award-card .title {
+    @apply font-sans text-[0.9rem] font-semibold;
+  }
+
+  /* Sponsor Box */
+  .sponsor-box {
+    @apply border-[1.5px] border-dashed border-[#AAAAAA] rounded-lg py-4 px-6 flex flex-col items-center gap-2 text-[#AAAAAA] text-[0.75rem] font-sans hover:bg-white/5 transition-colors cursor-pointer;
+  }
+}
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+}
+
+/* ================= QR SETTLING TRANSITION ANIMATIONS ================= */
+@keyframes qrSettle {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) scale(1.16) rotate(-5deg);
+    box-shadow: 0 35px 45px -10px rgba(10, 42, 94, 0.38);
+  }
+  52% {
+    opacity: 1;
+    transform: translateY(9px) scale(0.95) rotate(1.8deg);
+    box-shadow: 0 6px 14px -2px rgba(10, 42, 94, 0.22);
+  }
+  74% {
+    transform: translateY(-4px) scale(1.025) rotate(-0.6deg);
+    box-shadow: 0 18px 26px -4px rgba(10, 42, 94, 0.28);
+  }
+  88% {
+    transform: translateY(1.5px) scale(0.99) rotate(0.2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+    box-shadow: 0 12px 24px -4px rgba(10, 42, 94, 0.16), 0 4px 8px -2px rgba(10, 42, 94, 0.08);
+  }
+}
+
+@keyframes stampImprint {
+  0% {
+    opacity: 0;
+    transform: scale(2.5) rotate(28deg);
+  }
+  60% {
+    opacity: 0;
+    transform: scale(2.5) rotate(28deg);
+  }
+  82% {
+    opacity: 1;
+    transform: scale(0.85) rotate(-7deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-4deg);
+  }
+}
+
+@keyframes scanSweep {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.85;
+  }
+  85% {
+    opacity: 0.85;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes settlePulseRing {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.8;
+  }
+  60% {
+    transform: scale(1.08);
+    opacity: 0.35;
+  }
+  100% {
+    transform: scale(1.18);
+    opacity: 0;
+  }
+}
+
+.animate-qr-settle {
+  animation: qrSettle 1.15s cubic-bezier(0.25, 1, 0.5, 1) both;
+  transform-origin: center center;
+  will-change: transform, opacity, box-shadow;
+}
+
+.animate-stamp-imprint {
+  animation: stampImprint 1.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.animate-scan-sweep {
+  animation: scanSweep 2.4s ease-in-out infinite;
+  animation-delay: 1.25s;
+}
+
+.animate-settle-pulse {
+  animation: settlePulseRing 1.2s ease-out forwards;
+  animation-delay: 0.85s;
+}
+
+/* ================= REGISTRATION-TO-COMMUNITY QR ASSEMBLY ================= */
+.qr-build-sequence {
+  text-align: center;
+  margin: auto;
+  width: 100%;
+  max-width: 650px;
+  animation: qrSequenceIn 0.4s ease-out both;
+}
+
+@keyframes qrSequenceIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.qr-build-frame {
+  position: relative;
+  width: min(280px, 68vw);
+  aspect-ratio: 1;
+  margin: 18px auto 26px;
+  background: #fffdf4;
+  border: 12px solid #fff8e4;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px -12px rgba(10, 42, 94, 0.3), 0 0 0 1.5px rgba(200, 184, 154, 0.5);
+  overflow: hidden;
+}
+
+.qr-build-frame span {
+  position: absolute;
+  width: 20%;
+  height: 20%;
+  left: calc(var(--x) * 20%);
+  top: calc(var(--y) * 20%);
+  background-image: url('/community-sample-qr.png');
+  background-size: 500% 500%;
+  background-position: calc(var(--x) * 25%) calc(var(--y) * 25%);
+  animation: qr-tile-build 0.8s cubic-bezier(0.2, 0.72, 0.2, 1) both;
+  animation-delay: calc(var(--i) * 0.055s);
+}
+
+@keyframes qr-tile-build {
+  from {
+    opacity: 0;
+    transform: translate(calc((var(--x) - 2) * 28px), calc((var(--y) - 2) * -34px)) rotate(14deg) scale(0.65);
+    filter: sepia(1) brightness(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes progressFill {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animate-progress-fill {
+  animation: progressFill 2.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.step-transition-enter {
+  animation: stepTransitionEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes stepTransitionEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================= PROFILE BUILDING TRANSITION ANIMATIONS ================= */
+.profile-build-sequence {
+  text-align: center;
+  margin: auto;
+  width: 100%;
+  max-width: 650px;
+  animation: profileSequenceIn 0.5s ease-out both;
+}
+
+@keyframes profileSequenceIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Passport card assembles on paper */
+@keyframes passportFileAssemble {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) rotate(-6deg) scale(0.88);
+    box-shadow: 0 0 0 transparent;
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-4px) rotate(1.5deg) scale(1.02);
+    box-shadow: 0 25px 50px -12px rgba(10, 42, 94, 0.3);
+  }
+  55% {
+    transform: translateY(3px) rotate(-0.5deg) scale(0.99);
+  }
+  75% {
+    transform: translateY(-1px) rotate(0.3deg) scale(1.005);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0) scale(1);
+    box-shadow: 0 20px 40px -10px rgba(10, 42, 94, 0.18);
+  }
+}
+
+/* Seal stamp drops in */
+@keyframes sealStampDrop {
+  0% {
+    opacity: 0;
+    transform: scale(2.8) rotate(35deg);
+  }
+  65% {
+    opacity: 0;
+    transform: scale(2.8) rotate(35deg);
+  }
+  82% {
+    opacity: 1;
+    transform: scale(0.82) rotate(-8deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(12deg);
+  }
+}
+
+/* Ink text reveals from left to right */
+@keyframes inkReveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.3;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+/* Gold foil bar shimmers across */
+@keyframes foilShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Barcode lines print in */
+@keyframes barcodePrint {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 11rem;
+    opacity: 0.7;
+  }
+}
+
+/* Validated badge fades in */
+@keyframes validatedIn {
+  0%, 80% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-passport-assemble {
+  animation: passportFileAssemble 1.6s cubic-bezier(0.22, 0.68, 0.18, 1) both;
+}
+
+.animate-seal-drop {
+  animation: sealStampDrop 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.animate-ink-reveal {
+  animation: inkReveal 0.8s ease-out both;
+}
+
+.animate-ink-reveal-delay-1 {
+  animation: inkReveal 0.7s 0.6s ease-out both;
+}
+
+.animate-ink-reveal-delay-2 {
+  animation: inkReveal 0.6s 0.9s ease-out both;
+}
+
+.animate-ink-reveal-delay-3 {
+  animation: inkReveal 0.6s 1.2s ease-out both;
+}
+
+.animate-foil-shimmer {
+  background-size: 200% 100%;
+  animation: foilShimmer 2s 0.3s ease-in-out both;
+}
+
+.animate-barcode-print {
+  animation: barcodePrint 1.2s 1.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.animate-validated-badge {
+  animation: validatedIn 2.2s ease-out both;
+}
+
+/* Pulsing glow behind card during assembly */
+@keyframes cardGlow {
+  0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+  40% { box-shadow: 0 0 60px 20px rgba(212, 175, 55, 0.15); }
+  100% { box-shadow: 0 20px 40px -10px rgba(10, 42, 94, 0.18); }
+}
+
+.animate-card-glow {
+  animation: cardGlow 2s ease-out both;
+}
+
+/* Profile detail rows stagger in */
+@keyframes detailRowIn {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.profile-detail-row {
+  opacity: 0;
+  animation: detailRowIn 0.5s ease-out both;
+}
+
+.profile-detail-row:nth-child(1) { animation-delay: 0.7s; }
+.profile-detail-row:nth-child(2) { animation-delay: 0.85s; }
+.profile-detail-row:nth-child(3) { animation-delay: 1.0s; }
+.profile-detail-row:nth-child(4) { animation-delay: 1.15s; }
+.profile-detail-row:nth-child(5) { animation-delay: 1.3s; }
+.profile-detail-row:nth-child(6) { animation-delay: 1.45s; }
