@@ -4,10 +4,8 @@ import {
   setAuthUser,
   blankPassport,
   emptyPerson,
-  loadPassport,
   savePassport,
   isEmailRegistered,
-  getRegisteredEmails,
   clearDatabase,
   type AuthUser,
   type Passport,
@@ -49,12 +47,10 @@ export const GoogleAuthCard: React.FC<GoogleAuthProps> = ({
   isModal = false,
 }) => {
   const navigate = useNavigate();
-  const registeredEmails = getRegisteredEmails();
   const [customName, setCustomName] = useState('');
   const [customEmail, setCustomEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [nameError, setNameError] = useState('');
-  const [showCustom, setShowCustom] = useState(registeredEmails.length === 0);
   const [loading, setLoading] = useState(false);
 
   const handleSelectAccount = (name: string, email: string) => {
@@ -187,12 +183,17 @@ export const GoogleAuthCard: React.FC<GoogleAuthProps> = ({
         </div>
 
         <div>
-          <label className="block text-[10px] font-bold uppercase tracking-wider text-[#0A2A5E] mb-1">
-            Google Email Address <span className="text-red-500">*</span>
-          </label>
+          <div className="flex items-center justify-between mb-1">
+            <label className="block text-[10px] font-bold uppercase tracking-wider text-[#0A2A5E]">
+              Email Address <span className="text-red-500">*</span>
+            </label>
+            <span className="text-[10px] font-medium text-amber-800 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
+              Use personal email ID
+            </span>
+          </div>
           <input
             type="email"
-            placeholder="e.g. atharva@gmail.com"
+            placeholder="Enter personal email (e.g. name@gmail.com)"
             value={customEmail}
             onChange={(e) => {
               setCustomEmail(e.target.value);

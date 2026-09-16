@@ -142,7 +142,7 @@ export const ProfilePage: React.FC = () => {
     });
 
     if (passport.category === 'UG' && !passport.team?.trim()) {
-      errs['team'] = 'Team Delegation Name is required for Undergraduate entries.';
+      errs['team'] = 'Team Delegation Name is required for UG / Diploma entries.';
     }
 
     passport.people.slice(1).forEach((member, idx) => {
@@ -256,7 +256,7 @@ export const ProfilePage: React.FC = () => {
                     className="w-full px-3 py-2.5 rounded-lg border border-[#C8B89A] bg-white text-sm sm:text-xs font-semibold text-[#0A2A5E] min-h-[44px]"
                   >
                     <option value="">Select Category</option>
-                    <option value="UG">Undergraduate (UG)</option>
+                    <option value="UG">UG / Diploma</option>
                     <option value="PG">Postgraduate (PG)</option>
                     <option value="PPG">Post-PG / PhD</option>
                   </select>
@@ -352,9 +352,14 @@ export const ProfilePage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold uppercase text-[#0A2A5E] mb-1">
-                    Email Address <span className="text-red-500">*</span>
-                  </label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-[11px] font-bold uppercase text-[#0A2A5E]">
+                      Email Address <span className="text-red-500">*</span>
+                    </label>
+                    <span className="text-[10px] text-amber-800 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
+                      Use personal email ID
+                    </span>
+                  </div>
                   <input
                     type="email"
                     value={leader.email}
@@ -368,7 +373,7 @@ export const ProfilePage: React.FC = () => {
                         });
                       }
                     }}
-                    placeholder="name@institution.edu"
+                    placeholder="Enter personal email ID (e.g. name@gmail.com)"
                     className={`w-full px-3 py-2.5 rounded-lg border text-sm sm:text-xs min-h-[44px] ${
                       profileErrors['leader_email']
                         ? 'border-red-500 bg-red-50/30 ring-1 ring-red-400'
@@ -557,7 +562,7 @@ export const ProfilePage: React.FC = () => {
                               type="email"
                               value={m.email}
                               onChange={(e) => handleMemberChange(actualIdx, 'email', e.target.value)}
-                              placeholder="Email"
+                              placeholder="Personal Email ID"
                               className="px-2 py-2 sm:py-1 border border-gray-200 rounded text-sm sm:text-xs min-h-[44px] sm:min-h-0"
                             />
                             <input
@@ -586,7 +591,7 @@ export const ProfilePage: React.FC = () => {
               <div className="bg-[#FAF6EE] border-2 border-dashed border-[#C8B89A] rounded-2xl p-6 text-center shadow-sm">
                 <h3 className="font-display text-base font-bold text-[#0A2A5E]">Individual Participation Tier</h3>
                 <p className="text-xs text-[#5A5A7A] max-w-md mx-auto mt-1">
-                  You are registered under an individual research classification ({passport.category || 'PG/PPG'}). Co-author delegations are restricted to Undergraduate teams.
+                  You are registered under an individual research classification ({passport.category || 'PG/PPG'}). Co-author delegations are restricted to UG / Diploma teams.
                 </p>
               </div>
             )}
@@ -639,7 +644,7 @@ export const ProfilePage: React.FC = () => {
                 <div className="grid grid-cols-2 gap-2">
                   <div>
                     <span className="text-[9px] uppercase font-bold text-gray-400 block">Category</span>
-                    <span className="font-bold text-[#FF6B00]">{passport.category || 'Not chosen'}</span>
+                    <span className="font-bold text-[#FF6B00]">{passport.category === 'UG' ? 'UG / Diploma' : passport.category || 'Not chosen'}</span>
                   </div>
                   <div>
                     <span className="text-[9px] uppercase font-bold text-gray-400 block">Year / Status</span>

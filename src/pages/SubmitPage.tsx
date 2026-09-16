@@ -176,6 +176,8 @@ export const SubmitPage: React.FC = () => {
     setValidationErrors({});
     setShowWarning(false);
 
+    if (!file) return;
+
     const newAbstract: Abstract = {
       id: `PPT-${Date.now().toString().slice(-6)}`,
       title: title.trim(),

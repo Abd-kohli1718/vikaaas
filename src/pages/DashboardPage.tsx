@@ -246,7 +246,7 @@ export const DashboardPage: React.FC = () => {
               {registrationId}
             </h4>
             <span className="text-xs text-[#FF6B00] font-semibold mt-1 block">
-              Tier: {passport.category || 'Not selected'}
+              Tier: {passport.category === 'UG' ? 'UG / Diploma' : passport.category || 'Not selected'}
             </span>
           </div>
           <Link
@@ -576,7 +576,7 @@ export const DashboardPage: React.FC = () => {
               </div>
               <div>
                 <span className="text-[10px] text-gray-400 uppercase font-bold block">Category</span>
-                <span className="font-bold text-[#FF6B00]">{passport.category || 'N/A'}</span>
+                <span className="font-bold text-[#FF6B00]">{passport.category === 'UG' ? 'UG / Diploma' : passport.category || 'N/A'}</span>
               </div>
               <div>
                 <span className="text-[10px] text-gray-400 uppercase font-bold block">Institution</span>

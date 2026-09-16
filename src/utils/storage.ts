@@ -119,7 +119,7 @@ export function validProfile(data: Passport): boolean {
 
 export const yearOptionsFor = (category: string) =>
   category === 'UG'
-    ? ['1st year', '2nd year', '3rd year', '4th year']
+    ? ['1st year', '2nd year', '3rd year', '4th year', 'Diploma (1st Year)', 'Diploma (2nd Year)', 'Diploma (3rd Year)']
     : category === 'PG'
     ? ['1st year', '2nd year']
     : ['PhD Scholar / Candidate', 'Post-Doctoral Researcher'];

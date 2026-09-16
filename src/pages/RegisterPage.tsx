@@ -44,9 +44,9 @@ const trackThemeImages: Record<string, { image: string; sdgs: number[]; color: s
 
 const categoryDetails = {
   UG: {
-    title: 'Undergraduate (UG)',
+    title: 'UG / Diploma',
     teamRule: 'Teams of 2 to 4 members',
-    desc: 'Empowering young engineers and technologists to propose bold solutions for Viksit Bharat 2047.',
+    desc: 'Empowering young engineers and polytechnic / diploma scholars to propose bold solutions for Viksit Bharat 2047.',
     color: '#FF6B00',
     badgeImage: '/ug-category-emblem.jpg',
   },
@@ -252,7 +252,7 @@ export const RegisterPage: React.FC = () => {
       const leader = data.people[0] || emptyPerson();
       const errs = validatePerson(leader);
       if (data.category === 'UG' && !data.team.trim()) {
-        errs.team = 'Team name is required for UG participation.';
+        errs.team = 'Team name is required for UG / Diploma participation.';
       }
       const cleanEmail = leader.email.trim().toLowerCase();
       if (!data.registered && cleanEmail && isEmailRegistered(cleanEmail)) {
@@ -264,7 +264,7 @@ export const RegisterPage: React.FC = () => {
     if (step === 3) {
       if (data.category === 'UG') {
         if (data.people.length < 2) {
-          alert('Undergraduate registration requires at least 2 team members (1 Lead Author + at least 1 Team Member). Please add your team member(s).');
+          alert('UG / Diploma registration requires at least 2 team members (1 Lead Author + at least 1 Team Member). Please add your team member(s).');
           return false;
         }
 
@@ -1006,16 +1006,22 @@ export const RegisterPage: React.FC = () => {
 
               {/* Email */}
               <div>
-                <label className="block text-xs font-semibold text-[#0A2A5E] mb-1.5">
-                  Email Address <span className="text-red-500">*</span>
+                <label className="block text-xs font-semibold text-[#0A2A5E] mb-1.5 flex items-center justify-between flex-wrap gap-1">
+                  <span>Email Address <span className="text-red-500">*</span></span>
+                  <span className="text-[11px] font-medium text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                    Use personal email ID
+                  </span>
                 </label>
                 <input
                   type="email"
                   value={leader.email}
                   onChange={(e) => handleLeaderChange('email', e.target.value)}
-                  placeholder=""
+                  placeholder="Enter personal email ID (e.g. name@gmail.com)"
                   className="w-full px-4 py-3 rounded-xl border border-[#C8B89A] bg-white text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#0A2A5E] min-h-[44px]"
                 />
+                <p className="text-[11px] text-[#5A5A7A] mt-1">
+                  Please use your personal email ID for communication and certificate delivery.
+                </p>
                 {errors.email && <p className="text-xs text-red-600 mt-1 font-medium">{errors.email}</p>}
               </div>
 
@@ -1098,7 +1104,7 @@ export const RegisterPage: React.FC = () => {
             <div className="border-b border-[#C8B89A]/50 pb-4 mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div>
                 <span className="text-[11px] font-bold text-[#FF6B00] uppercase tracking-wider">
-                  Step 3 of 5 • {data.category === 'UG' ? 'Team Members (2 to 4 Members)' : 'Individual Participation'}
+                  Step 3 of 5 • {data.category === 'UG' ? 'UG / Diploma Team Members (2 to 4 Members)' : 'Individual Participation'}
                 </span>
                 <h2 className="font-display text-xl sm:text-3xl font-bold text-[#0A2A5E]">
                   {data.category === 'UG' ? 'Team Collaborators (2 to 4 Members)' : 'Individual Author Registration'}
@@ -1106,7 +1112,7 @@ export const RegisterPage: React.FC = () => {
                 <p className="text-xs sm:text-sm text-[#5A5A7A] mt-1">
                   Primary author: <strong className="text-[#0A2A5E]">{leader.name || 'Lead Author'}</strong>.
                   {data.category === 'UG'
-                    ? ' Undergraduate entries require a team of 2 to 4 members.'
+                    ? ' UG / Diploma entries require a team of 2 to 4 members.'
                     : ' Postgraduate and Post-PG / PhD tiers are strictly for individual participants.'}
                 </p>
               </div>
@@ -1135,7 +1141,7 @@ export const RegisterPage: React.FC = () => {
                 <Users className="w-10 h-10 text-[#FF6B00] mx-auto mb-2" />
                 <h4 className="font-bold text-[#0A2A5E]">Second Team Member Required</h4>
                 <p className="text-xs text-[#5A5A7A] max-w-md mx-auto mt-1 leading-relaxed">
-                  Undergraduate entries must have between 2 and 4 team members. Please click <strong>"Add Team Member"</strong> to add at least 1 co-author.
+                  UG / Diploma entries must have between 2 and 4 team members. Please click <strong>"Add Team Member"</strong> to add at least 1 co-author.
                 </p>
                 <button
                   type="button"
@@ -1212,8 +1218,11 @@ export const RegisterPage: React.FC = () => {
 
                         {/* Email */}
                         <div>
-                          <label className="block text-xs font-semibold text-[#0A2A5E] mb-1.5">
-                            Email Address <span className="text-red-500">*</span>
+                          <label className="block text-xs font-semibold text-[#0A2A5E] mb-1.5 flex items-center justify-between flex-wrap gap-1">
+                            <span>Email Address <span className="text-red-500">*</span></span>
+                            <span className="text-[11px] font-medium text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                              Use personal email ID
+                            </span>
                           </label>
                           <input
                             type="email"
@@ -1221,9 +1230,12 @@ export const RegisterPage: React.FC = () => {
                             autoComplete="off"
                             value={member.email}
                             onChange={(e) => handleMemberChange(actualIndex, 'email', e.target.value)}
-                            placeholder=""
+                            placeholder="Enter member's personal email ID (e.g. member@gmail.com)"
                             className={`w-full px-4 py-3 rounded-xl border ${emailErr ? 'border-red-500 bg-red-50/30 ring-1 ring-red-400' : 'border-[#C8B89A] bg-white'} text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#0A2A5E] min-h-[44px]`}
                           />
+                          <p className="text-[11px] text-[#5A5A7A] mt-1">
+                            Please use a unique personal email ID for this member.
+                          </p>
                           {emailErr && <p className="text-xs text-red-600 mt-1 font-medium">{emailErr}</p>}
                         </div>
 

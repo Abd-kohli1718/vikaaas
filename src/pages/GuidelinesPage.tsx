@@ -87,7 +87,7 @@ export const GuidelinesPage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-[#5A5A7A]">
             <div className="p-4 rounded-xl bg-white border border-[#C8B89A]/50">
-              <span className="font-bold text-sm text-[#0A2A5E] block mb-1">Undergraduate (UG)</span>
+              <span className="font-bold text-sm text-[#0A2A5E] block mb-1">UG / Diploma</span>
               <p className="leading-relaxed">
                 Open to students currently pursuing B.E., B.Tech, B.Sc, BCA or equivalent diplomas. Teams may comprise <strong>1 to 4 members</strong> from any accredited university. Cross-college teams are permitted.
               </p>
